@@ -1,9 +1,10 @@
 const app = require("express");
 const movieRouter = app.Router();
-const {getMovie} = require("../controllers/movie")
-const {checkUser} = require("../middleware")
+//const {getMovieById, getMovieBytitle, updateMovie} = require("../models/movieModel");
 
-movieRouter.get("/movie/:id", checkUser, async (req, res) => {
-data = getMovie(req,res)
-res.json(data)
+movieRouter.get("/:id", (req, res) => {
+  res.json({ success: "true" });
 });
+
+
+module.exports = movieRouter;
