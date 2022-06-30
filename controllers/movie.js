@@ -1,6 +1,0 @@
-
-
-
-function getMovie(req, res){
-
-}

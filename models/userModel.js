@@ -5,8 +5,7 @@ const UserSchema = new mongoose.Schema({
   username: { type: "string", required: true, unique: true },
   password: { type: "string", required: true },
   email: { type: "string", required: true, unique: true },
-  user_taste: { type: "string" },
-  reviews: { type: "array"},
+  user_taste: { type: "string" }
 });
 
 function getUserDetails(user_id){
