@@ -70,12 +70,43 @@ p{ font-size: 1.2rem;}
 
 </style>
 <script>
-  function submitRating(ele) {
+//   window.onload = () =>{
+//     console.log('hiī');
+//   var rating =parseInt('<%= rating %>');
+//   if(rating){
+//     document.getElementById('rating').value=rating;
+//     document.getElementById('rating').disabled=true;
+//   }
+//   else{
+//      document.getElementById('rating').value=0;
+//   }
+// };
+
+    function submitRating(ele) {
+      console.log('hellooo');
     let rating =ele.value;
+    let movieid='<%= data.movieId %>';
+    let userid='<%= userid %>'
+    console.log(rating);
+    let data={
+      rating:rating,
+      userid:userid,
+      movieid:movieid
+    };
+      ele.disabled=true;
+
+    $.ajax({
+      data:data,
+      method:'POST',
+      url:'http://localhost:3000/rating'
+    }).done(()=>{
+
+    })
   }
+  
 </script>
 <br><br>
-<div id="rating" style="display: none;">
+<!-- <div id="rating" style="display: none;">
   <h3 class="d-flex justify-content-center text-light">Submit Rating</h3>
   <div class="rating">
 
@@ -85,5 +116,16 @@ p{ font-size: 1.2rem;}
     <input type="radio" name="rating" value="2" id="2"><label for="2" onclick="submitRating(this)">☆</label>
     <input type="radio" name="rating" value="1" id="1"><label for="1" onclick="submitRating(this)">☆</label>
   </div>
-</div>
+</div> -->
+
+<label for="customRange3" class="form-label">Rating</label>
+<% if(rating) {%>
+<input type="range" class="form-range" min="0" max="5" step="1" id="rating" onclick="submitRating(this)" value="<%= rating %>" disabled>
+
+<% } %>
+<% if(!rating) {%>
+<input type="range" class="form-range" min="0" max="5" step="1" id="rating" onclick="submitRating(this)" value="0" >
+
+  <% } %>
+
 <%- include('include/footer') %>

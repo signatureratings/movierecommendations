@@ -1,7 +1,7 @@
 const app = require("express");
 const movieRouter = app.Router();
 const {insertMovie, getMovieById, getMovieBytitle, updateMovie} = require("../models/movieModel");
-
+const {getRating} = require("../models/ratingModel")
 
 const { exec } = require("child_process");
 function execute(filename) {
@@ -69,20 +69,30 @@ movieRouter.post("/", async(req,res)=>{
   }
 })
 
-movieRouter.get("/:id", async(req, res) => {
+movieRouter.get("/:id", async (req, res) => {
   var movie_id = parseInt(req.params.id);
-  try{
+  console.log(req.headers.cookie);
+  var cookie = req.headers.cookie;
+ let userid = parseInt(cookie.split(";")[0].split("=")[1])
+  var user_id = 1;
+  try {
     let result = await getMovieById(movie_id);
-    console.log(result)
-   let arr = result.genres.replace(/'/g, '"');
+    let rating = await getRating(user_id, movie_id);
+    console.log(result);
+    let arr = result.genres.replace(/'/g, '"');
 
-     arr = JSON.parse(arr );
+    arr = JSON.parse(arr);
     console.log(arr);
-    res.render('movie',{data:result,isLogin:true,genres:arr});
-  }
-  catch(err){
-    console.log(err)
-    return res.json({message:"error occured", status: 500})
+    res.render("movie", {
+      data: result,
+      isLogin: true,
+      genres: arr,
+      rating: rating,
+      userid:userid
+    });
+  } catch (err) {
+    console.log(err);
+    return res.json({ message: "error occured", status: 500 });
   }
 });
 

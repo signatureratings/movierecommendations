@@ -27,12 +27,15 @@ homeRouter.get("/", async (req, res) => {
   try {
     res.locals.name = "abc";
     //trending movies
-    trendingmovies = await getTrendingMovies();
-    userid = req.cookies;
-    if(userid){
-        //recently watched
-   recentlywatchedmovies = await getRecentlyWatchedMovies(1);
-    }
+  var  trendingmovies = await getTrendingMovies();
+  var  cookie = req.headers.cookie;
+  console.log(cookie)
+  userid = parseInt(cookie.split(";")[0].split("=")[1])
+  console.log(userid)
+   if(userid){
+       // recently watched
+var  recentlywatchedmovies = await getRecentlyWatchedMovies(userid);
+   }
     //content preferences
     const url = "https://image.tmdb.org/t/p/original/";
 
@@ -64,7 +67,11 @@ homeRouter.post("/login", async (req, res) => {
     res.redirect("/signin");
   }
 });
-
+homeRouter.get('/logout',async(req,res)=>{
+  res.clearCookie("isLogin", "", { expires: new Date() });
+  res.clearCookie("userid", "", { expires: new Date() });
+  res.redirect('/signin');
+})
 // homeRouter.post("/recentlywatched", async(req,res)=>{
 //     let userid = req.body.userid
 //     try{
