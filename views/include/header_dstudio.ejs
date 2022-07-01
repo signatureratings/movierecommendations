@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JNflix</title>
+       <link rel="icon" href="/images/netflix.jpg">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> 
+        
+  
+    </head>
+    <body  style="position: relative; background-color: darkslategrey;" >
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary sticky-top" >
+        <a class="navbar-brand" href="http://localhost:3000/home">
+        <img src="/images/netflix.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+          JNFLIX</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+              <a class="nav-link" href="http://localhost:3000/users">Home</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="http://localhost:3000/users">Movies</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="http://localhost:3000/users">Tv shows</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Genres
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="http://localhost:3000/post/create">Action</a>
+                <a class="dropdown-item" href="http://localhost:3000/post/create">Comedy</a>
+                <a class="dropdown-item" href="http://localhost:3000/post/create">Adventure</a>
+                <a class="dropdown-item" href="http://localhost:3000/post/create">Horror</a>
+                <a class="dropdown-item" href="http://localhost:3000/post/create">Romantic</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="http://localhost:3000/posts">Thriller</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Languages
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="http://localhost:3000/home">English</a>
+                <a class="dropdown-item" href="http://localhost:3000/home">Hindi</a>
+                <a class="dropdown-item" href="http://localhost:3000/home">French</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="http://localhost:3000">Japaneese</a>
+              </div>
+            </li>
+            
+            
+            <li class="nav-item active">
+              <a class="nav-link" href="http://localhost:3000/users">My Stuff</a>
+            </li>
+            
+          </ul>
+          <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="input-movie">
+            <button class="btn btn-success my-2 my-sm-0 mr-5"  onclick="searchMovie()">Search</button>
+          </div>
+          
+          <ul class="navbar-nav mr-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="currentUser" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <% if(isLogin) { %>
+                <img src="" width="35" height="33" class="d-inline-block align-top" alt="" style="border-radius: 7px;">
+               
+                <strong class="mt-2">abc</strong>
+                <% } %>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="http://localhost:3000/profile">Profile</a>
+               
+              </div>
+            </li>
+          </ul>
+           <% if(isLogin) { %>
+          <form class="form-inline my-2 my-lg-0" action="/logout" method="GET">
+            <button class="btn btn-danger my-2 my-sm-0" type="submit" id="logout" >Logout</button>
+          </form>
+           <% } %>
+             <% if(!isLogin) { %>
+               <form class="form-inline my-2 my-lg-0" action="/signin" method="GET"></form>
+               <button class="btn btn-danger my-2 my-sm-0" type="submit" id="logout" >LogIn</button>
+                </form>
+         <% } %>
+
+        </div>
+      </nav>
+     

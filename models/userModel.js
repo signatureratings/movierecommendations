@@ -4,13 +4,13 @@ const UserSchema = new mongoose.Schema({
   user_id: { type: "string", required: true, unique: true },
   username: { type: "string", required: true, unique: true },
   password: { type: "string", required: true },
-  email: { type: "string", required: true, unique: true },
-  user_taste: { type: "string" }
+  email: { type: "string", required: true, unique: true }
 });
 
-function getUserDetails(user_id){
+const UserModel = mongoose.model("userschema", UserSchema)
+async function getUserDetails(user_id){
 try{
-  result = await UserSchema.findOne({user_id: user_id});
+  result = await UserModel.findOne({user_id: user_id});
   return result
 }
 catch(err){
@@ -19,9 +19,9 @@ catch(err){
 }
 }
 
-function login(email, password){
+async function login(email, password){
   try{
-    result = await UserSchema.findOne({email: email, password: password});
+    result = await UserModel.findOne({email: email, password: password});
     return result;
   }
   catch(err){
@@ -30,9 +30,9 @@ function login(email, password){
   }
 }
 
-function createuser(userData){
+async function createuser(userData){
   try{
-    let user = new UserSchema(userData);
+    let user = new UserModel(userData);
     result = await user.save();
     return result;
   }

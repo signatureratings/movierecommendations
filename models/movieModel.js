@@ -39,7 +39,7 @@ const TrendingMovieSchema = new mongoose.Schema({
   imdb_id: { type: "string", unique: true },
   trending_number: { type: "number", unique: true },
   title: { type: "string", required: true, unique: true },
-  generes: { type: "array", required: true },
+  generes: { type: "array"},
   avg_rating: { type: "number" },
   poster_path: { type: "string" },
   homepage: { type: "string" }
@@ -94,9 +94,10 @@ async function getRecentlyWatchedMovies(userid){
     let result = await getLastRatings(userid)
     movie_ids = []
     result.forEach((value)=>{
-      movie_ids.push(value.movie_id)
+      movie_ids.push(value.movieId)
     })
-    let finalresult = await MovieModel.find({movie_id: { $in: movie_ids}})
+    console.log(movie_ids)
+    let finalresult = await MovieModel.find({movieId: { $in: movie_ids}})
     return finalresult
   }
   catch(err){

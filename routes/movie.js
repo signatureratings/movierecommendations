@@ -70,23 +70,18 @@ movieRouter.post("/", async(req,res)=>{
 })
 
 movieRouter.get("/:id", async(req, res) => {
-  movie_id = parseInt(req.params.id);
+  var movie_id = parseInt(req.params.id);
   try{
     let result = await getMovieById(movie_id);
-    if(result){
-      try{
-        let result = execute("m")
-      }
-      catch(err){
+    console.log(result)
+   let arr = result.genres.replace(/'/g, '"');
 
-      }
-      return res.json(result)
-    }
-    else{
-      return res.json({message:"could not find the movie in the database", status: 400})
-    }
+     arr = JSON.parse(arr );
+    console.log(arr);
+    res.render('movie',{data:result,isLogin:true,genres:arr});
   }
   catch(err){
+    console.log(err)
     return res.json({message:"error occured", status: 500})
   }
 });

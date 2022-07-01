@@ -28,11 +28,12 @@ async function getRating(userid, movieid) {
 
 async function getLastRatings(userid){
   try{
-    let result = await ratingModel.find({user_id: userid}, 'movie_id').sort({"timestamp": -1}).limit(5)
+    let result = await ratingModel.find({userId: userid}, 'movieId').limit(5)
+    console.log(result)
     return result
   }
   catch(err){
-    return 
+    return err
   }
 }
 
